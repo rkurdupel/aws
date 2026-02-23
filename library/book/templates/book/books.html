@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>List of all books: </h1>
+{% if request.user.role == 1%}
+<a href="{% url 'create_book'%}"><h3>Add Book</h3></a>
+{% endif %}
+
+{% for book in books %}
+<li>Book name: {{book.name}} | Description: {{book.description}} | Count: {{book.count}} |
+    Author: {% for author in book.authors.all %}
+    {{ author.name }} {{ author.surname }} {{ author.patronymic }}
+    {% endfor %}
+    {% if request.user.role == 1%}
+    <a href="{% url 'update_book' book.id %}">Edit book</a>
+    {% endif %}
+</li>
+
+    
+{% endfor %}
+<br>
+<form method="POST" action="{% url 'books' %}">
+    {% csrf_token %}
+    <label for="filter_choise">Choose filter:</label>
+    <select id="filter_choise" name="filter_choise">
+        <option value="id">By ID</option>
+        <option value="count">By Count</option>
+        <option value="name">By Book Name</option>
+    </select>
+    <input type="submit" value="Submit">
+</form>
+
+
+
+{% endblock content %}

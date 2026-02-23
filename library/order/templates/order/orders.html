@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>All orders: </h1>
+<ul>
+    {% for order in orders %}
+    {% if order.user.id == request.user.id %}
+    <li>
+        User: {{ order.user.first_name }} {{ order.user.last_name }} | Ordered book: {{ order.book.name }} |
+        <a href="{% url 'update_order' order.id %}">Change order</a>
+    </li>
+    {% elif request.user.role == 1 %}
+    <li>
+        User: {{ order.user.first_name }} {{ order.user.last_name }} | Ordered book: {{ order.book.name }} |
+        <a href="{% url 'close_order' order.id %}">Close order</a>
+    </li>
+    {% endif %}
+    {% endfor %}
+
+</ul>
+{% if request.user.role == 0 %}
+<a href="{% url 'create_order' %}">
+    <h3>Create your order!</h3>
+</a>
+{% endif %}
+{% endblock content %}

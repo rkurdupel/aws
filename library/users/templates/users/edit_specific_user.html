@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form action="{% url 'edit_specific_user' user.id %}" method = "post">
+        <h1>Edit User with ID: {{user_id}}</h1>
+        {% csrf_token %}
+        {{form.as_p}}
+        <button>Save</button>
+    </form>
+{% endblock content %}

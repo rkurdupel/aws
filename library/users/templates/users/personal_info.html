@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form action="{% url 'personal_info' %}" method = "post">
+    {% csrf_token %}
+    <h1>Personal data:</h1>
+    <p>ID: {{personal_data.id}}</p>
+    <p>First Name: {{personal_data.first_name}}</p>
+    <p>Middle Name: {{personaL_data.middle_name}}</p>
+    <p>Last Name: {{personal_data.last_name}}</p>
+    <p>Email: {{personal_data.email}}</p>
+    <p>Role: {{personal_data.role}}</p>
+    <p>Created at: {{personal_data.created_at}}</p>
+    <button type = "submit">Edit data</button>
+</form>
+{% endblock content %}

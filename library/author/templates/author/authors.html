@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if request.user.role == 1 %}
+<h1>Authors List:</h1>
+<ul>
+    {% for author in authors %}
+    <li>
+        {{ author.name }} {{ author.surname }} {{ author.patronymic }}
+        <ul>
+            {% for book in author.books.all %}
+            <li>{{ book.name }} - {{ book.description }} <button><a href = "{% url 'edit_author' author.id %}">Edit</a></button></li>
+            {% endfor %}
+        </ul>
+    </li>
+    {% if not author.books.all %}
+    <a href="{% url 'delete_author' author.id %}">Delete author</a>
+    {% endif %}
+
+    {% endfor %}
+</ul>
+<a href="{% url 'create_author' %}">
+    <h3>Add Author</h3>
+</a>
+{% else %}
+<h1>To access this page's functionality, you need to be a librarian.</h1>
+{% endif %}
+
+{% endblock content %}

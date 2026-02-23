@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Users List :</h1>
+<ul>
+    {% for u in users %}
+    
+    {% csrf_token %}
+    <form action="{% url 'edit_specific_user' u.id %}" method = "post">
+    <li>{{ u.first_name }} {{ u.middle_name }} {{ u.last_name }} | Email: {{ u.email }} | Role:
+        {% csrf_token %}
+        {% if u.role == 0 %}
+            visitor
+        {% elif u.role == 1 %}
+            librarian   
+         {% endif %}
+        {% if user.role == 1 %}
+          
+        {% endif %}
+        
+    </li>
+    </form>
+
+  
+    {% endfor %}
+    
+</ul>
+{% endblock content %}

@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Full information about book "{{book.name}}" :</h1>
+{{book}} | Author: {% for author in book.authors.all %}
+{{ author.name }} {{ author.surname }} {{ author.patronymic }}
+{% endfor %}</li>
+
+{% endblock content %}
